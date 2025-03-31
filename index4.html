@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARK - Kids Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+            transition: background 0.5s ease-in-out;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 50%;
+            width: 350px;
+            height: 350px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 50px;
+            text-align: center;
+            outline: none;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        input:focus {
+            background: rgba(255, 255, 255, 1);
+        }
+        button {
+            width: 85%;
+            padding: 12px;
+            background: linear-gradient(90deg, #FFC3A0, #FFAFBD);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #FFAFBD, #FFC3A0);
+            transform: scale(1.1);
+        }
+        h2 {
+            font-size: 20px;
+            color: #FF69B4;
+            font-weight: bold;
+        }
+        p, a {
+            font-size: 14px;
+            color: #555;
+        }
+        a:hover {
+            color: #FF69B4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <h2>Welcome to SPARK</h2>
+        <input type="text" id="username" placeholder="Enter Username" required autocomplete="off">
+        <input type="password" id="password" placeholder="Enter Password" required>
+        <button onclick="login()">Login</button>
+        <p>New User? <a href="#" onclick="showRegister()">Register</a></p>
+    </div>
+    
+    <div class="container" id="registerContainer" style="display: none;">
+        <h2>Register for SPARK</h2>
+        <input type="text" id="regUsername" placeholder="Enter Username" required autocomplete="off">
+        <input type="password" id="regPassword" placeholder="Enter Password" required>
+        <button onclick="register()">Register</button>
+        <p>Already registered? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+    
+    <script>
+        function showRegister() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerContainer').style.display = 'flex';
+        }
+
+        function showLogin() {
+            document.getElementById('registerContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'flex';
+        }
+
+        function register() {
+            let username = document.getElementById('regUsername').value;
+            let password = document.getElementById('regPassword').value;
+            if (username && password) {
+                localStorage.setItem(username, password);
+                alert('Registration successful! Welcome to SPARK!');
+                showLogin();
+            } else {
+                alert('Please enter valid details');
+            }
+        }
+
+        function login() {
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            let storedPassword = localStorage.getItem(username);
+            if (storedPassword && storedPassword === password) {
+                alert('Login successful! Welcome to SPARK!');
+                document.body.innerHTML = '<h2 style="color:#FF69B4;">Welcome to SPARK, ' + username + '!</h2><p>This is your magical adventure.</p>';
+            } else {
+                alert('Invalid credentials! Try again.');
+            }
+        }
+    </script>
+</body>
+</html>
